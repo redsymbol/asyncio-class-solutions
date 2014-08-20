@@ -13,7 +13,7 @@ def client_connected_handler(client_reader, client_writer):
     task = asyncio.async(handle_client(client_reader, client_writer))
 
     def client_done(task):
-        del clients[task]
+        print('Connection completed')
 
     task.add_done_callback(client_done)
 
