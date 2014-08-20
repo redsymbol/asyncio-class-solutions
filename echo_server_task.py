@@ -1,7 +1,6 @@
 import asyncio
 
 PORT=4242
-clients = {}
 
 @asyncio.coroutine
 def handle_client(client_reader, client_writer):
@@ -12,7 +11,6 @@ def handle_client(client_reader, client_writer):
 
 def client_connected_handler(client_reader, client_writer):
     task = asyncio.async(handle_client(client_reader, client_writer))
-    clients[task] = (client_reader, client_writer)
 
     def client_done(task):
         del clients[task]
