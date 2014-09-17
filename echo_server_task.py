@@ -4,21 +4,17 @@ PORT = 4242
 
 NUM_CLIENTS = 0
 
-def log(msg):
-    sys.stdout.write(msg + '\n')
-    sys.stdout.flush()
-
 def client_connected_handler(client_reader, client_writer):
     task = asyncio.Task(handle_client(client_reader, client_writer))
     def client_done(future):
         global NUM_CLIENTS
         NUM_CLIENTS += 1
-        log('Client done')
+        print('Client done')
     task.add_done_callback(client_done)
 
 @asyncio.coroutine
 def handle_client(client_reader, client_writer):
-    log('New client')
+    print('New client')
     while not client_reader.at_eof():
         data = (yield from client_reader.readline())
         client_writer.write(data)
